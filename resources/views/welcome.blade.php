@@ -17,33 +17,36 @@
                     omnis minus?
                 </p>
                 <div class="mt-5">
-                    <button class="btn btn-success">Register as Patient</button>
-                    <button class="btn btn-secondary">Login</button>
+                    <a href="{{ url('/register') }}"><button class="btn btn-success">Register as Patient</button></a>
+                    <a href="{{ url('/login') }}"><button class="btn btn-secondary">Login</button></a>
                 </div>
             </div>
         </div>
 
         <hr>
         <!-- Search doctor -->
-        <div class="card">
-            <div class="card body">
-                <div class="card-header">
-                    Find Doctors
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <input type="date" name="date" class="form-control">
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-primary" type="submit">
-                                Find Doctors
-                            </button>
+        <form action="{{ url('/') }}" method="GET">
+            <div class="card">
+                <div class="card body">
+                    <div class="card-header">
+                        Find Doctors
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <input type="text" name="date" class="form-control" id="datepicker">
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-primary" type="submit">
+                                    Find Doctors
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
+
         <!-- Display doctors -->
         <div class="card">
             <div class="card-body">
@@ -60,21 +63,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>
-                                    <img src="/doctors/doctor.png" width="100px" style="border-radius: 50%;">
-                                </td>
-                                <td>
-                                    Name of doctor
-                                </td>
-                                <td>
-                                    Cardiologist
-                                </td>
-                                <td>
-                                    <button class="btn btn-success">Book Appointment</button>
-                                </td>
-                            </tr>
+
+                            @forelse ($doctors as $doctor)
+                                <tr>
+
+                                    <th scope="row"></th>
+                                    <td>
+                                        <img src="{{ asset('images') }}/{{ $doctor->doctor->image }}" width="100px" style="border-radius: 50%;">
+                                    </td>
+                                    <td>
+                                        {{ $doctor->doctor->name }}
+                                    </td>
+                                    <td>
+                                        {{ $doctor->doctor->department }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('create.appointment', [$doctor->user_id, $doctor->date]) }}"><button class="btn btn-success">Book Appointment</button>
+                                    </td>
+                                </tr>
+                            @empty
+                                <td>No doctors avaiable today</td>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
