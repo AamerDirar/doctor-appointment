@@ -71,7 +71,6 @@ class FrontendController extends Controller
         try {
             Mail::to(auth()->user()->email)->send(new AppointmentMail($mailData));
         } catch (\Exception $ex) {
-            
         }
 
         return redirect()->back()->with('message', 'Your appointment was booked');
@@ -80,5 +79,23 @@ class FrontendController extends Controller
     public function checkBookingTimeInterval()
     {
         return Booking::orderBy('id', 'desc')->where('user_id', auth()->user()->id)->whereDate('created_at', date('Y-m-d'))->exists();
+    }
+
+    public function myBookings()
+    {
+        $appointments = Booking::latest()->where('user_id', auth()->user()->id)->get();
+        return view('booking.index', compact('appointments'));
+    }
+
+    public function doctorToday(Request $request)
+    {
+        $doctors = Appointment::with('doctor')->whereDate('date', date('Y-m-d'))->get();
+        return $doctors;
+    }
+
+    public function findDoctors(Request $request)
+    {
+        $doctors = Appointment::with('doctor')->whereDate('date', $request->date)->get();
+        return $doctors;
     }
 }

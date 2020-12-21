@@ -1,6 +1,5 @@
 @extends('admin.layouts.master')
 
-
 @section('content')
     <div class="page-header">
         <div class="row align-items-end">
@@ -131,10 +130,9 @@
                                 <label for="">Specialist</label>
                                 <select name="department" class="form-control">
                                     <option value="">Please select your department</option>
-                                    <option value="Cardiologist">Cardiologist</option>
-                                    <option value="Family-physician">Family-physician</option>
-                                    <option value="Ophthalmologist">Ophthalmologist</option>
-                                    <option value="Neurologist">Neurologist</option>
+                                    @foreach (App\Department::all() as $d)
+                                        <option value="{{ $d->department }}">{{ $d->department }}</option>
+                                    @endforeach
                                 </select>
                                 @error('department')
                                     <span class="invalid-feedback" role="alert">
