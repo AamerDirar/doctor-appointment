@@ -7,8 +7,8 @@
                 <div class="page-header-title">
                     <i class="ik ik-inbox bg-blue"></i>
                     <div class="d-inline">
-                        <h5>Doctors</h5>
-                        <span>List of all doctors</span>
+                        <h5>Departments</h5>
+                        <span>list of all departments</span>
                     </div>
                 </div>
             </div>
@@ -16,10 +16,10 @@
                 <nav class="breadcrumb-container" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="../index.html"><i class="ik ik-home"></i></a>
+                            <a href=""><i class="ik ik-home"></i></a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">Doctors</a>
+                            <a href="#">Departments</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Index</li>
                     </ol>
@@ -39,46 +39,40 @@
             @endif
 
             <div class="card">
-                <div class="card-header"><h3>Doctors</h3></div>
+                <div class="card-header"><h3>Departments</h3></div>
                 <div class="card-body">
                     <table id="data_table" class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th class="nosort">Avatar</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Phone number</th>
+                                <th>Department Name</th>
                                 <th class="nosort">&nbsp;</th>
                                 <th class="nosort">&nbsp;</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (count($doctors) > 0)
-                                @foreach ($doctors as $doctor)
+                            @if (count($departments) > 0)
+                                @foreach ($departments as $department)
                                     <tr>
-                                        <td>{{ $doctor->name }}</td>
-                                        <td><img src="{{ asset('images') }}/{{ $doctor->image }}" class="table-user-thumb" alt=""></td>
-                                        <td>{{ $doctor->email }}</td>
-                                        <td>{{ $doctor->address }}</td>
-                                        <td>{{ $doctor->phone_number }}</td>
+                                        <td>{{ $department->department }}</td>
                                         <td>
-                                            <div class="table-actions">
-                                                <a href="#" data-toggle="modal" data-target="#exampleModal{{$doctor->id}}"><i class="ik ik-eye"></i></a>
-                                                <a href="{{ route('doctor.edit', $doctor->id) }}"><i class="ik ik-edit-2"></i></a>
-                                                <a href="{{ route('doctor.show', $doctor->id) }}"><i class="ik ik-trash-2"></i></a>
+                                            <div class="table-actions row text-center">
+                                                <div class="col-1">
+                                                    <a href="{{ route('department.edit', [$department->id]) }}"><i class="ik ik-edit-2"></i></a>
+                                                </div>
+                                                <div class="col-1">
+                                                    <form action="{{ route('department.destroy', [$department->id]) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"><i class="ik ik-trash-2"></i></button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>x</td>
                                     </tr>
-
-                                    <!-- View Modal -->
-                                    @include('admin.doctor.modal')
-
                                 @endforeach
                             @else
-                                <td>No doctors found to display</td>
-
+                                <td>No departments found to display</td>
                             @endif
 
                         </tbody>

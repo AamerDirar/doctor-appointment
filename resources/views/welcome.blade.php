@@ -17,68 +17,15 @@
                     omnis minus?
                 </p>
                 <div class="mt-5">
-                    <button class="btn btn-success">Register as Patient</button>
-                    <button class="btn btn-secondary">Login</button>
+                    <a href="{{ url('/register') }}"><button class="btn btn-success">Register as Patient</button></a>
+                    <a href="{{ url('/login') }}"><button class="btn btn-secondary">Login</button></a>
                 </div>
             </div>
         </div>
 
         <hr>
-        <!-- Search doctor -->
-        <div class="card">
-            <div class="card body">
-                <div class="card-header">
-                    Find Doctors
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <input type="date" name="date" class="form-control">
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-primary" type="submit">
-                                Find Doctors
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Display doctors -->
-        <div class="card">
-            <div class="card-body">
-                <div class="card-header">Doctors</div>
-                <div class="card-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Photo</th>
-                                <th>Name</th>
-                                <th>Expertise</th>
-                                <th>Book</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>
-                                    <img src="/doctors/doctor.png" width="100px" style="border-radius: 50%;">
-                                </td>
-                                <td>
-                                    Name of doctor
-                                </td>
-                                <td>
-                                    Cardiologist
-                                </td>
-                                <td>
-                                    <button class="btn btn-success">Book Appointment</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+        <!-- Date picker component -->
+        <find-doctor></find-doctor>
+        
     </div>
 @endsection

@@ -12,12 +12,21 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <!-- For Datepicker -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"defer></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('template/dist/css/theme.min.css') }}">
+
+    <!-- For Datepicker -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
     <div id="app">
@@ -38,6 +47,16 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        @if(auth()->check() && auth()->user()->role->name === 'patient')
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('my.booking') }}">{{ __('My Booking') }}</a>
+                            </li>
+                        @endif
+                        @if(auth()->check() && auth()->user()->role->name === 'patient')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('my.prescription') }}">{{ __('My Prescription') }}</a>
+                        </li>
+                    @endif
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -48,6 +67,7 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
+
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -55,6 +75,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @if(auth()->check() && auth()->user()->role->name === 'patient')
+                                        <a class="dropdown-item" href="{{ url('user-profile') }}">Profile</a>
+                                    @else
+                                        <a class="dropdown-item" href="{{ url('dashboard') }}">Dashboard</a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -76,5 +101,44 @@
             @yield('content')
         </main>
     </div>
+
+    <script>
+        var dataToday = new Date();
+        $( function() {
+          $( "#datepicker" ).datepicker({
+              dateFormat: "yy-mm-dd",
+              showButtonPanel: true,
+              numberOfMonths:2,
+              minDate: dataToday,
+          })
+        } );
+    </script>
+
+    <style type="text/css">
+        body{
+            background: #fff;
+        }
+        .ui-corner-all{
+            background: red;
+            color: #fff;
+        }
+        label.btn{
+            padding: 0;
+        }
+        label.btn input{
+            opacity: 0;
+            position: absolute;
+        }
+        label.btn span{
+            text-align: center;
+            padding: 6px 12px;
+            display: block;
+            min-width: 80px;
+        }
+        label.btn input:checked+span{
+            background-color: rgb(80,110,228);
+            color: #fff;
+        }
+    </style>
 </body>
 </html>
