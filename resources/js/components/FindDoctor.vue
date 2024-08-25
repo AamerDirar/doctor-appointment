@@ -41,7 +41,7 @@
                 >
               </td>
             </tr>
-            <td colspan="5" v-if="doctors.length == 0">
+            <td colspan="5" v-if="doctors.length === 0">
               No doctors available for {{ this.time }}
             </td>
           </tbody>

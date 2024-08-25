@@ -6,7 +6,7 @@
         <a
           href=""
           @click.prevent="add(index)"
-          v-show="index == inputs.length - 1"
+          v-show="index === inputs.length - 1"
           style="color: green"
           >Add More Medicine</a
         >

@@ -92,7 +92,7 @@ class DoctorController extends Controller
 
         if ($request->hasFile('image')) {
             $imageName  = (new User)->userAvatar($request);
-            unlink(public_path('images/' . $doctor->image));
+            $doctor->image ? unlink(public_path('images/' . $doctor->image)) : '';
         }
 
         $data['image']  =   $imageName;

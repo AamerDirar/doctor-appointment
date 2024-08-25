@@ -15,8 +15,8 @@
                         <p>Name:    {{ auth()->user()->name }}</p>
                         <p>Email:   {{ auth()->user()->email }}</p>
                         <p>Address: {{ auth()->user()->address }}</p>
-                        <p>Phone:   {{ auth()->user()->phone_number }}</p>
-                        <p>Gender:  {{ auth()->user()->gender }}</p>
+                        <p>Phone:   {{ auth()->user()?->phone_number }}</p>
+                        <p>Gender:  {{ auth()->user()?->gender }}</p>
                         <p>Bio:     {{ auth()->user()->description }}</p>
                     </div>
                 </div>
